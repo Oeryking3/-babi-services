@@ -16,6 +16,7 @@ class Prestataire extends Model
         'specialite',
         'localisation',
         'note_moyenne',
+        'statut',
         'id_categorie',
     ];
 
