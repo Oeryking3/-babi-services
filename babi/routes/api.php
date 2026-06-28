@@ -7,10 +7,7 @@ use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\AvisController;
 use App\Http\Controllers\Api\AdminDashboardController;
 use App\Http\Controllers\Api\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AdminUtilisateursController;
-use App\Http\Controllers\Api\AdminMissionsController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login',    [AuthController::class, 'login']);
@@ -35,12 +32,12 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::apiResource('services',     ServiceController::class)->only(['store', 'update', 'destroy']);
 
     Route::prefix('admin')->group(function () {
-        Route::get('dashboard',                                  [AdminDashboardController::class,    'index']);
-        Route::patch('prestataires/{id}/valider',                [AdminDashboardController::class,    'validerPrestataire']);
-        Route::patch('prestataires/{id}/rejeter',                [AdminDashboardController::class,    'rejeterPrestataire']);
-        Route::get('utilisateurs',                               [AdminUtilisateursController::class, 'index']);
-        Route::delete('utilisateurs/{id}',                       [AdminUtilisateursController::class, 'destroy']);
-        Route::delete('utilisateurs/prestataires/{id}',          [AdminUtilisateursController::class, 'destroyPrestataire']);
-        Route::get('missions',                                   [AdminMissionsController::class,     'index']);
+        Route::get('dashboard',                          [AdminDashboardController::class, 'index']);
+        Route::patch('prestataires/{id}/valider',        [AdminDashboardController::class, 'validerPrestataire']);
+        Route::patch('prestataires/{id}/rejeter',        [AdminDashboardController::class, 'rejeterPrestataire']);
+        Route::get('utilisateurs',                       [AdminDashboardController::class, 'utilisateurs']);
+        Route::delete('utilisateurs/{id}',               [AdminDashboardController::class, 'deleteUtilisateur']);
+        Route::delete('utilisateurs/prestataires/{id}',  [AdminDashboardController::class, 'deletePrestataire']);
+        Route::get('missions',                           [AdminDashboardController::class, 'missions']);
     });
 });
